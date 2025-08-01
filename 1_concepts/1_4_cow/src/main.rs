@@ -10,8 +10,14 @@ use std::borrow::Cow;
             match &arg[..] {
                 "--conf" => {
                     if let Some(arg_conf) = args.next() {
-                        return Cow::Owned(arg_conf)
-                    } else {panic!("Expected a value after --conf, but none was provided.")}
+                        if arg_conf.is_empty() {
+                            panic!("--conf value is empty.");
+                        } else {
+                            return Cow::Owned(arg_conf)
+                        }
+                    } else {
+                        panic!("Expected a value after --conf, but none was provided.")
+                    }
                 },
                 _ => ()
 
