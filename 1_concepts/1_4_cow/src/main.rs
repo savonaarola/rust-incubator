@@ -20,7 +20,11 @@ use std::borrow::Cow;
         }
 
         if let Ok(val) = env::var("APP_CONF"){
-            Cow::Owned(val)
+            if !val.is_empty() {
+                Cow::Owned(val)
+            } else {
+                Cow::Borrowed("/etc/app/app.conf")
+            }
         } else {
             Cow::Borrowed("/etc/app/app.conf")
         }
